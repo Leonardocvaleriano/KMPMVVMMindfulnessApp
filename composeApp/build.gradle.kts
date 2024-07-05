@@ -69,6 +69,8 @@ android {
     }
     dependencies {
         debugImplementation(compose.uiTooling)
+        implementation(libs.kotlinx.coroutines.android)
+
     }
 }
 
