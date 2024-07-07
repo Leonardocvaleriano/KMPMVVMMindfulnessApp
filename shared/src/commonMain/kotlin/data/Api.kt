@@ -1,6 +1,0 @@
-package data
-
-interface Api {
-
-
-}
