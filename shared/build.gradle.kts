@@ -4,6 +4,11 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    //to deserialize JSON responses into objects of entity classes.
+    alias(libs.plugins.kotlinxSerialization)
+
+
+
 }
 
 kotlin {
@@ -28,13 +33,23 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             // put your Multiplatform dependencies here
+
+            // Ktor Api
             implementation(libs.ktor.client.core)
             implementation(libs.kotlinx.coroutines.core)
+
+            // To deserialize JSON responses into objects of entity classes.
+            implementation(libs.ktor.serialization.kotlinx.json)
+            // Deserialize the result of a GET request.
+            // The plugin processes the request and the response payload as JSON,
+            // serializing and deserializing them as needed.
+            implementation(libs.ktor.client.content.negotiation)
 
         }
 
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp)
+
         }
 
         iosMain.dependencies {

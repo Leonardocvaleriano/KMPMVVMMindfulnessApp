@@ -2,32 +2,48 @@ import SwiftUI
 import Shared
 
 struct ContentView: View {
-    @State private var showContent = false
+    @ObservedObject private(set) var viewModel: ViewModel
+    // let jsonResponseAsText = MindfulnessBooksApiImpl().getJsonFromApi()
+    
+    
     var body: some View {
-        VStack {
-            Button("Click me!") {
-                withAnimation {
-                    showContent = !showContent
+        Text(viewModel.jsonResponseAsText)
+    }
+}
+
+
+
+extension ContentView {
+    class ViewModel: ObservableObject {
+        @Published var jsonResponseAsText = "Loading..."
+        init() {
+            MindfulnessBooksApiImpl().getJsonFromApi() {
+                mindfulnessBooksApiImpl, error in
+                DispatchQueue.main.async {
+                    if let mindfulnessBooksApiImpl = mindfulnessBooksApiImpl {
+                        self.jsonResponseAsText = mindfulnessBooksApiImpl
+                    } else {
+                        self.jsonResponseAsText = error?.localizedDescription ?? "error"
+                    }
                 }
+            }
             }
 
-            if showContent {
-                VStack(spacing: 16) {
-                    Image(systemName: "swift")
-                        .font(.system(size: 200))
-                        .foregroundColor(.accentColor)
-                    Text("SwiftUI: \(Greeting().greet())")
-                }
-                .transition(.move(edge: .top).combined(with: .opacity))
-            }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .padding()
     }
-}
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+        //            Greeting().greeting { greeting, error in
+        //                DispatchQueue.main.async {
+        //                    if let greeting = greeting {
+        //                        self.text = greeting
+        //                    } else {
+        //                        self.text = error?.localizedDescription ?? "error"
+        //                    }
+        //                }
+        //            }
+
+       // struct ContentView_Previews: PreviewProvider {
+        //    static var previews: some View {
+        //        ContentView()
+        //    }
+        //}
