@@ -1,13 +1,13 @@
-package domain.models
+package data.network.models
 
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ImageLinks(
+data class ImageLinksDto(
     @SerialName("smallThumbnail")
-    val smallThumbnail: String?,
+    val smallThumbnailDto: String?,
     @SerialName("thumbnail")
-    val thumbnail: String?
+    val thumbnailDto: String?
 )

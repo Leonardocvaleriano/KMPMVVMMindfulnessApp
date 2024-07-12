@@ -1,15 +1,16 @@
-package domain.models
+package data.network.models
 
 
+import domain.models.VolumeInfo
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class VolumeInfo(
+data class VolumeInfoDto(
     @SerialName("imageLinks")
-    val imageLinks: ImageLinks?,
+    val imageLinksDto: ImageLinksDto?,
     @SerialName("subtitle")
-    val subtitle: String?,
+    val subtitleDto: String?,
     @SerialName("title")
-    val title: String?
+    val titleDto: String?
 )

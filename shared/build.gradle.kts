@@ -2,12 +2,10 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinMultiplatform)
     //to deserialize JSON responses into objects of entity classes.
     alias(libs.plugins.kotlinxSerialization)
-
-
 
 }
 
@@ -40,10 +38,12 @@ kotlin {
 
             // To deserialize JSON responses into objects of entity classes.
             implementation(libs.ktor.serialization.kotlinx.json)
-            // Deserialize the result of a GET request.
+            // To deserialize the result of a GET request.
             // The plugin processes the request and the response payload as JSON,
             // serializing and deserializing them as needed.
             implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.koin.core)
+
 
         }
 
